@@ -63,7 +63,7 @@ namespace WebUI.Pages
 
             // Retrieve a reference to a container.
             CloudQueue queue = queueClient.GetQueueReference(_config["QueueName"]);
-
+            await queue.CreateIfNotExistsAsync();
             await queue.AddMessageAsync(new CloudQueueMessage(Data));
 
             Message = "Got it!, want to give us more data?";
