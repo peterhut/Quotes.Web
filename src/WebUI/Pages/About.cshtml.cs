@@ -32,9 +32,12 @@ namespace WebUI.Pages
             {
                 Message = "Debugging Info.";
                 BackgroundColor = Environment.GetEnvironmentVariable("BACKGROUND_COLOR");
-                var path = Environment.GetEnvironmentVariable("REGISTRY_NAME");
-                RegistryUrl = path.Replace("/", "");
-                RegistryIp = System.Net.Dns.GetHostAddresses(RegistryUrl)[0].ToString();
+                var path = Environment.GetEnvironmentVariable("DOCKER_REGISTRY_SERVER_URL");
+                if (!string.IsNullOrEmpty(path))
+                {
+                    RegistryUrl = path.Replace("/", "");
+                    RegistryIp = System.Net.Dns.GetHostAddresses(RegistryUrl)[0].ToString();
+                }
                 HostName = Environment.GetEnvironmentVariable("COMPUTERNAME") ??
                                                 Environment.GetEnvironmentVariable("HOSTNAME");
                 OsArchitecture = RuntimeInformation.OSArchitecture.ToString();

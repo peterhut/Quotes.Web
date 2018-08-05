@@ -34,7 +34,7 @@ namespace WebUI.Pages
             if (envVersion != null){
                 Version=new Version(envVersion.ToString());
             } else{
-                Version=new Version("0.0.0");
+                Version=new Version("1.0.0");
             }
 
             BackgroundColor = Environment.GetEnvironmentVariable("BACKGROUND_COLOR");
