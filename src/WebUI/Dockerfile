@@ -1,29 +1,25 @@
-FROM microsoft/dotnet-sdk:linux-2.1 AS build
-WORKDIR /src
-COPY ./test/demo42tests/demo42tests.csproj ./test/demo42tests/
-COPY ./src/WebUI/WebUI.csproj src/WebUI/
+FROM microsoft/dotnet:2.1-sdk AS build
+WORKDIR /app
+
 COPY ./Web.sln .
-COPY ./NuGet.Config .
-RUN dotnet restore ./src/WebUI/WebUI.csproj
+COPY ./test/demo42tests/demo42tests.csproj test/demo42tests/
+COPY ./src/WebUI/WebUI.csproj src/WebUI/
+RUN dotnet restore src/WebUI/WebUI.csproj
+
 COPY . .
-RUN dotnet build -c Release ./src/WebUI/WebUI.csproj
+RUN dotnet build -c Release src/WebUI/WebUI.csproj
 
 FROM build as test
-WORKDIR /src
-RUN dotnet test ./test/demo42tests/demo42tests.csproj
+WORKDIR /app
+RUN dotnet test test/demo42tests/demo42tests.csproj
 
 FROM build AS publish
-WORKDIR ./src/WebUI
-RUN dotnet publish WebUI.csproj -c Release -o /app
+WORKDIR /app/src/WebUI
+RUN dotnet publish WebUI.csproj -c Release -o /out
 
-FROM microsoft/aspnetcore-runtime:linux-2.1 AS base
+FROM microsoft/dotnet:2.1-aspnetcore-runtime AS runtime
 WORKDIR /app
-ARG REGISTRY_NAME
-ENV REGISTRY_NAME=${REGISTRY_NAME}
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app .
+COPY --from=publish /out ./
 ENV VERSION=1.0.18
 ENV ASPNETCORE_ENVIRONMENT=development
 ENTRYPOINT ["dotnet", "WebUI.dll"]

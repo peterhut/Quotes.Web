@@ -14,7 +14,7 @@ namespace WebUI
         public QuoteClient(HttpClient client, ILogger<QuoteClient> logger, IConfiguration config)
         {
             _client = client;
-            _client.BaseAddress = new Uri(config["QuotesService"]);
+            _client.BaseAddress = new Uri(config["QuoteService"]);
             _logger = logger;
         }
 
