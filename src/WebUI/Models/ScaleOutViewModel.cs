@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace WebUI.Models
 {
-    public class FactorialViewModel
+    public class ScaleOutViewModel
     {
         [FromForm]
         public long N { get; set; }
 
-        public BigInteger FactorialOfN { get; set; }
+        public Quote[] AllQuotes { get; set; }
     }
 }

@@ -133,14 +133,17 @@ namespace WebUI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Factorial(long? n)
+        public async Task<IActionResult> ScaleOut(int? n = 10)
         {
             if (n.HasValue)
             {
-                var model = new FactorialViewModel()
+                var tasks = Enumerable.Range(0, n.Value).Select(i => _client.GetRandomQuote());
+                var quotes = await Task.WhenAll(tasks);
+
+                var model = new ScaleOutViewModel()
                 {
                     N = n.Value,
-                    FactorialOfN = CalcFactorial(n.Value)
+                    AllQuotes = quotes
                 };
                 return View(model);
             }
@@ -152,9 +155,9 @@ namespace WebUI.Controllers
 
 
         [HttpPost]
-        public IActionResult Factorial(FactorialViewModel model)
+        public IActionResult ScaleOut(ScaleOutViewModel model)
         {
-            return RedirectToAction("Factorial", new { n = model.N });
+            return RedirectToAction("ScaleOut", new { n = model.N });
         }
 
         private static BigInteger CalcFactorial(BigInteger i)

@@ -1,0 +1,30 @@
+﻿@model ScaleOutViewModel
+@{
+    ViewData["Title"] = "Quote Overload";
+}
+<style>
+    .break-word {
+        word-wrap: break-word;
+    }
+</style>
+<h2>Quote Overload</h2>
+
+<form class="form-inline" method="POST">
+    <label class="sr-only" for="inlineFormInput">How many quotes?</label>
+    <input type="text" asp-for="N" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter n">
+
+    <button type="submit" onclick="$('.alert').alert('close')" class="btn btn-primary">Submit</button>
+</form>
+
+@if (Model?.AllQuotes != null)
+{
+    @foreach (var quote in Model.AllQuotes)
+    {
+<div>
+    <blockquote class="blockquote">
+        <p class="mb-0">@quote.text</p>
+        <footer class="blockquote-footer">@quote.attribution</footer>
+    </blockquote>
+</div>
+    }
+}

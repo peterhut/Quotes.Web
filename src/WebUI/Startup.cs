@@ -47,7 +47,7 @@ namespace WebUI
 
             services.AddHttpClient<IQuoteClient, QuoteClient>()
                     .AddPolicyHandler(retryPolicy)
-                    .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(10))
+                    .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(60)) // Long timeout to enable putting load on backend
                     .AddTransientHttpErrorPolicy(policyBuilder => policyBuilder.RetryAsync(2))
                     .AddTransientHttpErrorPolicy(policyBuilder => policyBuilder.CircuitBreakerAsync(
                                                 2, TimeSpan.FromSeconds(30)));
