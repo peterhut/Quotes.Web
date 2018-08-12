@@ -2,16 +2,11 @@ FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /app
 
 COPY ./Web.sln .
-COPY ./test/demo42tests/demo42tests.csproj test/demo42tests/
 COPY ./src/WebUI/WebUI.csproj src/WebUI/
 RUN dotnet restore src/WebUI/WebUI.csproj
 
 COPY . .
 RUN dotnet build -c Release src/WebUI/WebUI.csproj
-
-FROM build as test
-WORKDIR /app
-RUN dotnet test test/demo42tests/demo42tests.csproj
 
 FROM build AS publish
 WORKDIR /app/src/WebUI
