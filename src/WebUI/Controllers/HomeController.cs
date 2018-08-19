@@ -159,12 +159,5 @@ namespace WebUI.Controllers
         {
             return RedirectToAction("ScaleOut", new { n = model.N });
         }
-
-        private static BigInteger CalcFactorial(BigInteger i)
-        {
-            if (i <= 1)
-                return 1;
-            return i * CalcFactorial(i - 1);
-        }
     }
 }
