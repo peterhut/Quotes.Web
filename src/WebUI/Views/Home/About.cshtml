@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "About";
+}
+@model AboutModel
+<style type="text/css">
+    body {
+        background-color:@Model.BackgroundColor;
+    }
+</style>
+<h2>@ViewData["Title"]</h2>
+<h3>@Model.Message</h3>
+
+<b>HostName:</b> @Model.HostName<br />
+<b>OS Architecture:</b> @Model.OsArchitecture<br />
+<b>OS Description:</b> @Model.OsDescription<br />
+<b>Process Architecture:</b> @Model.ProcessArchitecture<br />
+<b>Framework Description:</b> @Model.FrameworkDescription<br />
+<b>ASP.NET Core Package Version</b> @Model.AspNetCorePackageVersion<br />
+<b>ASP.NET Hosting Environment:</b> @Model.AspNetCoreEnvironment<br />
+<b>RegistryUrl:</b> @Model.RegistryUrl<br />
+<b>Image Build Date:</b> @Model.ImageBuildDate<br />
+<b>Base Image Version:</b> @Model.BaseImageVersion<br />
+<h3>Environment Variables:</h3>
+@Html.Raw(@Model.EnvironmentVariables)

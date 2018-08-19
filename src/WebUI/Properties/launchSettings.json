@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "WebUI": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        // Start emulator: https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator#start-and-initialize-the-storage-emulator
+        "StorageConnectionString": "UseDevelopmentStorage=true",
+        "QuoteService": "http://localhost:57539",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:52795/"
+    }
+  }
+}
