@@ -12,6 +12,7 @@ namespace WebUI{
     public class Program{
         public static IWebHostBuilder CreateWebHostBuilder(string[] args){
             var builder = WebHost.CreateDefaultBuilder(args);
+            builder.UseUrls("http://*:5000");
             builder.UseStartup<Startup>();
             return builder;
         }

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Queue;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Primitives;
 using WebUI;
 using WebUI.Models;
 
@@ -109,9 +110,21 @@ namespace WebUI.Controllers
             {
                 envVars.Append(string.Format("<strong>{0}</strong>:{1}<br \\>", de.Key, de.Value));
             }
-
             model.EnvironmentVariables = envVars.ToString();
+
+            StringBuilder requestHeaders = new StringBuilder();
+            foreach (KeyValuePair<string, StringValues>  entry in Request.Headers)
+            {
+                requestHeaders.Append(string.Format("<strong>{0}</strong>:{1}<br \\>", entry.Key, String.Join(",", entry.Value)));
+            }
+            requestHeaders.Append(string.Format("<strong>{0}</strong>:{1}<br \\>", "Remote IP Address", HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString()));
+            model.RequestHeaders = requestHeaders.ToString();            
             return View(model);
+        }
+
+        public string IPAddress()
+        {
+            return HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
         }
 
         public IActionResult Contact()

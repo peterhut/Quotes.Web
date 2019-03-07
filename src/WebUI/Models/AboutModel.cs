@@ -17,6 +17,7 @@ namespace WebUI.Models
         public string AspNetCorePackageVersion { get; set; }
         public string AspNetCoreEnvironment { get; set; }
         public string EnvironmentVariables { get; set; }
+        public string RequestHeaders { get; set; }
         public string ImageBuildDate { get; set; }
         public string BaseImageVersion { get; set; }
         public string RegistryUrl { get; set; }
