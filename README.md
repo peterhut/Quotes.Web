@@ -5,3 +5,5 @@ The Web frontend for the Quotes demo. Simple Web site that shows a quote and has
 |---|---|---|
 | QuoteService | The URL to the Quote Service. |  http://localhost:57539 |
 | StorageConnectionString | The connectionstring to the Azure Storage Account. Used to place 'orders' in a queue. |
+
+Based on https://github.com/demo42/web
